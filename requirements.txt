@@ -1,0 +1,15 @@
+requests
+
+# testing
+httpretty==1.1.4
+flask
+youtube-transcript-api
+langchain
+streamlit
+faiss-cpu
+langchain-google-genai
+google-generativeai
+langchain-openai
+langserve[all]
+webvtt-py
+pandas
