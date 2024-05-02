@@ -21,8 +21,6 @@ from youtube_transcript_api.formatters import TextFormatter, WebVTTFormatter
 
 import streamlit as st
 
-# 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
-# os.environ["OPENAI_API_KEY"] = "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"
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
 os.environ["LANGCHAIN_API_KEY"]  = "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"
 
