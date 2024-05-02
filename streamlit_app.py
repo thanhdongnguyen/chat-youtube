@@ -51,15 +51,17 @@ def getSub(video_id):
 def getWtt(video_id):
 
     path = f"{video_id}.vtt"
+
+    if os.path.exists(path):
+        os.remove(path)
+
     trans = YouTubeTranscriptApi.get_transcript(video_id, languages=["vi", "en"], preserve_formatting=True)
     formater = WebVTTFormatter()
     text_format = formater.format_transcript(trans)
 
-    with open(path, 'w', encoding='utf-8') as file:
-        file.write(text_format)
 
+    return text_format
 
-    return path
 
 
 def time_to_webvtt_timestamp(t: time):
@@ -173,15 +175,11 @@ with st.sidebar:
         st.video(link_youtube)
 
         with st.status("Loading subtitles..."):
-            pathWtt = getWtt(get_yt_id(link_youtube))
-        if pathWtt:
-            df = vtt_string_to_dataframe(open(pathWtt).read())
+            wtt_data = getWtt(get_yt_id(link_youtube))
+        if wtt_data:
+            df = vtt_string_to_dataframe(wtt_data)
             "Subtitles in video:"
             st.dataframe(df)
-
-            if os.path.exists(pathWtt):
-                os.remove(pathWtt)
-
 
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "Bot", "message": "Hello, I'm AI. I can help you answer questions about the video"}]
